@@ -6,7 +6,7 @@ public class index14 {
         String a="吃包子";
         String b="吃油条";
         String c="吃主席套餐";
-        switch (c){
+        switch (a){
             case"a":
                 System.out.println("星期一");
                 System.out.println("星期三");
@@ -21,6 +21,6 @@ public class index14 {
                 System.out.println("星期日");
                 break;
         }
-        System.out.println("今天的早餐是："+c);
+        System.out.println("今天的早餐是："+a);
     }
 }

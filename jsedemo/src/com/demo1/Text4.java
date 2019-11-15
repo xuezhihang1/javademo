@@ -1,0 +1,12 @@
+package com.demo1;
+
+import java.util.Scanner;
+public class Text4 {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int a=sc.nextInt();
+        int b=sc.nextByte();
+        int c=Text3.ss(a,b);
+        System.out.println(c);
+    }
+}
