@@ -28,6 +28,7 @@ public class LingJing {
             System.out.println("登记失败");
             return;
         }
+
         //灵兽
         LingShou a = new LingShou();
         LingShou a2 = new LingShou();
@@ -154,7 +155,7 @@ public class LingJing {
         a.xingbie = xingbie;
         a.age = age;
         for (int i = 0; i < arr.length; i++) {
-            if (age < 18 || age > 30) {
+            if (age < 10 || age > 30) {
                 return -1;
             } else if (arr[i] != null) {
                 arr[i] = a;
