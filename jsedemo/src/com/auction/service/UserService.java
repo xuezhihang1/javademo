@@ -43,9 +43,15 @@ public class UserService {
     //充值
     public int Recharge(int re) {
         int a = ud.Recharge(re);
-        return a;
+        if (a!=-1){
+            return a;
+        }
+        return -1;
     }
-
+    //展示所有商品
+    public void showAll(){
+        ud.showAll();
+    }
     //展示百宝囊
     public void showTreasureBag() {
         ud.showTreasureBag();
@@ -61,6 +67,10 @@ public class UserService {
         int i = ud.showCar();
         return i;
     }
+    public int spend() {
+        int r = ud.spend();
+        return r;
+    }
 
     //加入购物车
     public int shoppingCar(int l) {
@@ -68,14 +78,4 @@ public class UserService {
         return i;
     }
 
-    //结算模块
-    public int payment() {
-        int n = ud.payment();
-        return n;
-    }
-
-    public int spend(int n) {
-        int r = ud.spend(n);
-        return r;
-    }
 }

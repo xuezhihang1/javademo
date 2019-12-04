@@ -60,7 +60,7 @@ public class AuctionTest {
         System.out.println("欢迎进入星空拍卖场");
         int z = 0;
         bj2:
-        while (z != 9) {
+        while (z != 8) {
             System.out.println("请根据数字选择你所需要的功能：");
             System.out.println("1.充值；2.展示所有商品；3.搜索商品；4.查看拍卖行排行榜；5.上架商品；6.查看我的购物车；7；加入我的购物车；8.离开拍卖场;9.重新登录");
             int c = sc.nextInt();
@@ -69,23 +69,13 @@ public class AuctionTest {
                 case 1:
                     System.out.println("请输入所要充值的金额（最大充值金额为100）：");
                     int d = sc.nextInt();
-                    int e = a.Recharge1(d);
-                    if (e != -1) {
-                        System.out.println("充值成功");
-                        System.out.println("你的账户余额为：" + e);
-                        if (e > 100 && e <= 200) {
-                            System.out.println("你的等级为：有钱人");
-                        } else if (e > 200 && e <= 300) {
-                            System.out.println("你的等级为：土豪");
-                        } else if (e > 300 && e <= 400) {
-                            System.out.println("你的等级为：神豪");
-                        } else if (e > 400 && e <= 500) {
-                            System.out.println("你的等级为：肝帝");
-                        }
-                    } else {
-                        System.out.println("充值失败");
+                    if (d>100 || d<0){
+                        System.out.println("输入的金额有误，请重新输入：");
+                        break ;
                     }
-                    break;
+                    int re = a.Recharge1(d);
+                    System.out.println("当前账户余额为："+re);
+                    break ;
                     //展示所有商品
                 case 2:
                     f.Commodity();
@@ -109,32 +99,28 @@ public class AuctionTest {
                     if (s == 1) {
                         f.shelves();
                         System.out.println("现在的商品是：");
-                        f.Commodity();
+                        f.showAll();
                     }
                     //查看我的购物车
                 case 6:
                     System.out.println("您的购物车有以下商品：");
                     while (true) {
                         int i = a.showCar();
-                        if (i == 0) {
-                            break;
-                        }
-                    }
-                    int n = a.payment();
-                    System.out.println("总价：" + n);
-                    System.out.println("是否结算： 1.结算 2.不结算");
-                    int p = sc.nextInt();
-                    if (p == 1) {
-                        int r = a.spend(n);
-                        if (r == 1) {
-                            System.out.println("是否展示百宝箱 1.展示 2.不展示");
-                            int q = sc.nextInt();
-                            if (q == 1) {
-                                a.showTreasureBag();
+                        System.out.println("是否结算： 1.结算 2.不结算");
+                        int p = sc.nextInt();
+                        if (p == 1) {
+                            int r = a.spend();
+                            if (r == 1) {
+                                System.out.println("是否展示百宝囊 1.展示 2.不展示");
+                                int q = sc.nextInt();
+                                if (q == 1) {
+                                    a.showTreasureBag();
+                                    break ;
+                                }
                             }
-                        }
-                        if (r == 0) {
-                            break;
+                            if (r == 0) {
+                                break;
+                            }
                         }
                     }
                     break;

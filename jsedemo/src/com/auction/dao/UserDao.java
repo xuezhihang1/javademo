@@ -15,17 +15,20 @@ public class UserDao {
     //创建存放商品的数组
     private static Commodity[] cm;
     //创建百宝囊的数组
-    Commodity bag[] = new Commodity[50];
+    private static Commodity []bag;
     //创建购物车的数组
-    Commodity car[] = new Commodity[15];
+    private static Commodity []car;
 
     private static int p;   //当前余额
+    private static int p2;   //余额的和
     private static int n;
 
     static{
         ue = new Users[10];
         wa = new int[1];
         cm = new Commodity[15];
+        bag = new Commodity[50];
+        car = new Commodity[15];
         p = 0;
         n = 0;
     }
@@ -65,9 +68,12 @@ public class UserDao {
     }
     //往钱包数组中充值
     public int Recharge(int a){
-        if (a >0 && a <=100){
-            wa[0] = wa[0]+a;
-            return wa[0];
+        for (int i = 0;i < ue.length;i++){
+            p2=ue[i].getCapital();
+            p2=p2+a;
+            ue[i].setCapital(p2);
+            p = ue[i].getCapital();
+            return p;
         }
         return -1;
     }
@@ -149,6 +155,14 @@ public class UserDao {
             System.out.println("名字："+cm[i].getName()+"属性："+cm[i].getAttribute()+"类型："+cm[i].getType()+"价格："+cm[i].getPrice()+"功能："+cm[i].getFunction());
         }
     }
+    //展示全部商品信息
+    public void showAll(){
+        for (int i=0;i<cm.length;i++){
+            if(cm[i]!=null){
+                System.out.println("名字："+cm[i].getName()+"属性："+cm[i].getAttribute()+"类型："+cm[i].getType()+"价格："+cm[i].getPrice()+"功能："+cm[i].getFunction());
+            }
+        }
+    }
     //展示百宝囊
     public void showTreasureBag(){
         for (int i = 0;i < bag.length;i++){
@@ -200,32 +214,31 @@ public class UserDao {
        return 0;
     }
     //结算
-    public int payment(){
-        for (int i=0;i<car.length;i++){
-            if(car[i]!=null){
-                n=n+car[i].getPrice();
-            }
-        }
-        return n;
-    }
-    public int spend(int n){
-        if(p>=n){
-            p=p-n;
-            System.out.println(p);
-            for (int j=0;j<car.length;j++){
-                if(car[j]!=null){
-                    for(int i=0;i<bag.length;i++)
-                        if (bag[i] == null) {
-                            bag[i] = car[j];
-                            car[i]=null;
-                            break;
-                        }
-                }
-            }
-            return 1;
-        }
-        else {
-            return 0;
-        }
+    public int spend(){
+       for (int i = 0;i < car.length;i++){
+           if (car[i] !=null){
+               n = n+car[i].getPrice();
+               if (p >= n){
+                   p = p -n;
+                   System.out.println("当前余额为："+p);
+                   for (int j = 0;j < car.length; j++){
+                       if (car[i] != null){
+                           for (int k = 0;k < bag.length;k++)
+                               if (bag[k] == null){
+                               bag[k] = car[j];
+                               car[j] = null;
+                               break;
+                               }
+                       }
+                   }
+                   return 1;
+               }
+               else{
+                   System.out.println("余额不足，请先充值");
+                   return 0;
+               }
+           }
+       }
+       return 0;
     }
 }
